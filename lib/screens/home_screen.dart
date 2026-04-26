@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import '../data/tattoo_data.dart';
 import '../models/tattoo.dart';
 import '../widgets/tattoo_card.dart';
@@ -35,6 +36,39 @@ class _HomeScreenState extends State<HomeScreen> {
     return ['All', ...tags.toList()..sort()];
   }
 
+  Future<void> _getLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Location services are disabled.')),
+      );
+      return;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Location permission denied.')),
+        );
+        return;
+      }
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Your location: ${position.latitude.toStringAsFixed(4)}, '
+            '${position.longitude.toStringAsFixed(4)}',
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +88,11 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _getLocation,
+        icon: const Icon(Icons.location_on_rounded),
+        label: const Text('Near Me'),
       ),
       body: _filtered.isEmpty
           ? const Center(child: Text('No tattoos for this style.'))
@@ -79,8 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           tattoo: tattoo,
                           isSaved: widget.savedIds.contains(tattoo.id),
                           onToggleSaved: widget.onToggleSaved,
-                          ),
                         ),
+                      ),
                     );
                   },
                 );

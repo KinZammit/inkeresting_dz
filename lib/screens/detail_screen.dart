@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/tattoo.dart';
 import '../widgets/tag_chip.dart';
+import '../services/notification_service.dart';
 
 class DetailScreen extends StatefulWidget {
   final Tattoo tattoo;
@@ -31,6 +32,12 @@ class _DetailScreenState extends State<DetailScreen> {
   Future<void> _handleToggle() async {
     setState(() => _isLoading = true);
     await widget.onToggleSaved(widget.tattoo.id);
+
+    if (!_isSaved)
+    {
+    await NotificationService.showPinnedNotification(widget.tattoo.title);
+    }
+
     setState(() {
       _isSaved = !_isSaved;
       _isLoading = false;

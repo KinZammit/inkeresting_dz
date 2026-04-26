@@ -23,11 +23,11 @@ class _DetailScreenState extends State<DetailScreen> {
   late bool _isSaved;
   bool _isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _isSaved = widget.isSaved;
-  }
+@override
+void initState() {
+  super.initState();
+  _isSaved = widget.isSaved;
+}
 
   Future<void> _handleToggle() async {
     setState(() => _isLoading = true);
@@ -35,7 +35,9 @@ class _DetailScreenState extends State<DetailScreen> {
 
     if (!_isSaved)
     {
-    await NotificationService.showPinnedNotification(widget.tattoo.title);
+      print('DEBUG: attempting to show notification for ${widget.tattoo.title}');
+      await NotificationService.showPinnedNotification(widget.tattoo.title);
+      print('DEBUG: notification sent');
     }
 
     setState(() {

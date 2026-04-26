@@ -3,7 +3,7 @@ import '../data/tattoo_data.dart';
 import '../models/tattoo.dart';
 import '../widgets/tattoo_card.dart';
 import '../widgets/tag_filter_bar.dart';
-// import 'detail_screen.dart'; // uncomment in step 3
+import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final Set<String> savedIds;
@@ -71,7 +71,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 return TattooCard(
                   tattoo: tattoo,
                   isSaved: widget.savedIds.contains(tattoo.id),
-                  onTap: () {}, // wire up in step 3
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => DetailScreen(
+                          tattoo: tattoo,
+                          isSaved: widget.savedIds.contains(tattoo.id),
+                          onToggleSaved: widget.onToggleSaved,
+                          ),
+                        ),
+                    );
+                  },
                 );
               },
             ),

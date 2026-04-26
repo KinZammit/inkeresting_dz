@@ -71,8 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 return TattooCard(
                   tattoo: tattoo,
                   isSaved: widget.savedIds.contains(tattoo.id),
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) => DetailScreen(

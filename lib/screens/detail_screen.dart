@@ -48,16 +48,20 @@ class _DetailScreenState extends State<DetailScreen> {
             expandedHeight: 380,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                tattoo.imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  child: const Icon(Icons.broken_image_rounded, size: 60),
+              background: Semantics(
+                label: 'Tattoo image of ${tattoo.title}',
+                image: true,
+                child: Image.asset(
+                  tattoo.imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    color:
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
+                    child: const Icon(Icons.broken_image_rounded, size: 60),
+                  ),
                 ),
               ),
             ),
-            // Save / unsave button in app bar
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -70,17 +74,23 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: CircularProgressIndicator(strokeWidth: 2),
                         ),
                       )
-                    : IconButton(
-                        tooltip: _isSaved ? 'Remove from saved' : 'Save',
-                        icon: Icon(
-                          _isSaved
-                              ? Icons.bookmark_rounded
-                              : Icons.bookmark_border_rounded,
-                          color: _isSaved
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.white,
+                    : Semantics(
+                        label: _isSaved
+                            ? 'Remove ${tattoo.title} from board'
+                            : 'Save ${tattoo.title} to board',
+                        button: true,
+                        child: IconButton(
+                          tooltip: _isSaved ? 'Remove from saved' : 'Save',
+                          icon: Icon(
+                            _isSaved
+                                ? Icons.bookmark_rounded
+                                : Icons.bookmark_border_rounded,
+                            color: _isSaved
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.white,
+                          ),
+                          onPressed: _handleToggle,
                         ),
-                        onPressed: _handleToggle,
                       ),
               ),
             ],
@@ -91,7 +101,6 @@ class _DetailScreenState extends State<DetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title
                   Text(
                     tattoo.title,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -99,29 +108,31 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                   ),
                   const SizedBox(height: 6),
-                  // Artist row
                   Row(
                     children: [
                       const Icon(Icons.brush_rounded, size: 16),
                       const SizedBox(width: 6),
                       Text(
                         tattoo.artist,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
                   const Divider(),
                   const SizedBox(height: 16),
-                  // Description
                   Text(
                     'About this piece',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           letterSpacing: 0.8,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurfaceVariant,
                         ),
                   ),
                   const SizedBox(height: 8),
@@ -132,12 +143,13 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                   ),
                   const SizedBox(height: 24),
-                  // Tags
                   Text(
                     'Styles',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           letterSpacing: 0.8,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurfaceVariant,
                         ),
                   ),
                   const SizedBox(height: 10),
@@ -149,19 +161,26 @@ class _DetailScreenState extends State<DetailScreen> {
                         .toList(),
                   ),
                   const SizedBox(height: 32),
-                  // Pin button
-                  SizedBox(
-                    width: double.infinity,
-                    child: FilledButton.icon(
-                      onPressed: _isLoading ? null : _handleToggle,
-                      icon: Icon(
-                        _isSaved
-                            ? Icons.bookmark_remove_rounded
-                            : Icons.bookmark_add_rounded,
-                      ),
-                      label: Text(_isSaved ? 'Remove from Board' : 'Pin to Board'),
-                      style: FilledButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                  Semantics(
+                    label: _isSaved
+                        ? 'Remove ${tattoo.title} from board'
+                        : 'Pin ${tattoo.title} to board',
+                    button: true,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FilledButton.icon(
+                        onPressed: _isLoading ? null : _handleToggle,
+                        icon: Icon(
+                          _isSaved
+                              ? Icons.bookmark_remove_rounded
+                              : Icons.bookmark_add_rounded,
+                        ),
+                        label: Text(
+                          _isSaved ? 'Remove from Board' : 'Pin to Board',
+                        ),
+                        style: FilledButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
                       ),
                     ),
                   ),

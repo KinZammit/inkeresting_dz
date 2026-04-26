@@ -4,7 +4,7 @@ const List<Tattoo> kTattoos =
 [
   Tattoo(
     id: 't1',
-        imageUrl: 'https://images.unsplash.com/photo-1590246814883-57c511e76523?w=600',
+    imageUrl: 'assets/images/sacred_geometry.jpg',
     title: 'Sacred Geometry',
     artist: 'Mara Ink',
     description: 'Test 1',
@@ -12,7 +12,7 @@ const List<Tattoo> kTattoos =
 
   Tattoo(
     id: 't2',
-    imageUrl: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=600',
+    imageUrl: 'assets/images/botanical_sleeve.jpg',
     title: 'Botanical Sleeve',
     artist: 'Leo Pires',
     description: 'Test 2',
@@ -20,7 +20,7 @@ const List<Tattoo> kTattoos =
 
   Tattoo(
     id: 't3',
-    imageUrl: 'https://images.unsplash.com/photo-1567975807982-b891e4c69069?w=600',
+    imageUrl: 'assets/images/japanese_dragon.jpg',
     title: 'Japanese Dragon',
     artist: 'Kenji Mori',
     description: 'Test 3',
@@ -28,7 +28,7 @@ const List<Tattoo> kTattoos =
 
   Tattoo(
     id: 't4',
-    imageUrl: 'https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?w=600',
+    imageUrl: 'assets/images/watercolour_fox.jpg',
     title: 'Watercolour Fox',
     artist: 'Sofia Renn',
     description: 'Test 4',
@@ -36,7 +36,7 @@ const List<Tattoo> kTattoos =
 
   Tattoo(
     id: 't5',
-    imageUrl: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?w=600',
+    imageUrl: 'assets/images/minimalist_wave.jpg',
     title: 'Minimalist Wave',
     artist: 'Anna Cruz',
     description: 'Test 5',
@@ -44,7 +44,7 @@ const List<Tattoo> kTattoos =
 
   Tattoo(
     id: 't6',
-    imageUrl: 'https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=600',
+    imageUrl: 'assets/images/neo_traditional_rose.jpg',
     title: 'Neo-Traditional Rose',
     artist: 'Dante Voss',
     description: 'Test 6',
